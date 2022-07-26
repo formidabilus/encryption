@@ -19,7 +19,7 @@ function cypher(message, secretKey, encryption = true) {
     if (encryption) {
       const sumOfIndexes =
         (characters.indexOf(message[index]) +
-          characters.indexOf(secretKey[index % secretKey.length])) %
+          characters.indexOf(secretKey[index])) %
         characters.length;
 
       const encryptedIndexFromList = characters.indexOf(
@@ -30,7 +30,7 @@ function cypher(message, secretKey, encryption = true) {
     } else {
       const decryptedIndexFromList =
         characters.indexOf(message[index]) -
-        characters.indexOf(secretKey[index % secretKey.length]);
+        characters.indexOf(secretKey[index]);
 
       cypherMessage[index] = characters[decryptedIndexFromList];
     }
