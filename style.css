@@ -1,0 +1,50 @@
+body {
+  color: azure;
+  background-color: indigo;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+textarea {
+  resize: none;
+}
+
+label {
+  margin: 10px;
+  margin-top: 30px;
+}
+
+button {
+  margin: 10px 50px 0;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+button:active {
+  background-color: white;
+  color: black;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+#encrypted-message {
+  color: black;
+}
+
+@media screen and (max-width: 480px) {
+  textarea {
+    width: 20em;
+  }
+
+  button {
+    margin: 10px 10px 0 0;
+  }
+}
