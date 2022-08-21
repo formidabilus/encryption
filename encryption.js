@@ -10,10 +10,28 @@ Dupa cum spune in descrierea problemei, exemplul dat in imaginea de pe imgur est
 
 import { characters } from "./characters.js";
 
+const spaces = [];
+
+function spaceIntegration(messageString, spaces) {
+  const messageArray = messageString.split("");
+  spaces.forEach((spaceIndex, index) => {
+    messageArray.splice(spaceIndex, 0, " ");
+  });
+  return messageArray.join("");
+}
+
 function cypher(message, secretKey, encryption = true) {
   const secretKeyArray = secretKey.split("");
   const messageArray = message.split("");
   const cypherMessage = [...message];
+
+  if (encryption === true) {
+    messageArray.forEach((char, index) => {
+      if (/\s/.test(char)) {
+        spaces.push(index);
+      }
+    });
+  } else;
 
   function encryptOrDecrypt(message, secretChar, index, encrypt = true) {
     if (encryption) {
@@ -40,27 +58,30 @@ function cypher(message, secretKey, encryption = true) {
     const oneCharKey = secretKeyArray.length == 1;
     if (encryption) {
       if (oneCharKey) {
-        messageArray.forEach((messageChar, index) =>
-          encryptOrDecrypt(message, char, index)
-        );
+        messageArray.forEach((messageChar, index) => {
+          encryptOrDecrypt(message, char, index);
+        });
       } else encryptOrDecrypt(message, char, index);
     } else {
       if (oneCharKey) {
         messageArray.forEach((messageChar, index) =>
           encryptOrDecrypt(message, char, index, false)
         );
-      } else encryptOrDecrypt(message, char, index, false);
+      } else {
+        encryptOrDecrypt(message, char, index, false);
+      }
     }
   });
 
-  return cypherMessage.join("");
+  let newMessage = cypherMessage.join("");
+
+  if (encryption === false) {
+    newMessage = spaceIntegration(cypherMessage.join(""), spaces);
+    spaces.length = 0;
+  }
+
+  return newMessage;
 }
-
-console.log(cypher("ABCDE", "BBBBB"));
-console.log(cypher("BCDEF", "B", false));
-
-console.log(cypher("MY NAME IS ZSOLT", "JAVASCRIPT"));
-console.log(cypher("VYUNSOVHX, ZSOLT", "JAVASCRIPT", false));
 
 function copyText() {
   copyButton.addEventListener("click", () => {
